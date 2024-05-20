@@ -1,10 +1,13 @@
 import express from "express";
+import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 
+// to improve performance drastically by compressing data on req/res
+app.use(compression());
 // to accept request from frontend url
 app.use(
   cors({
