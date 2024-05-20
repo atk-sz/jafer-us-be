@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
+import { registerUser } from "./controllers/user.js";
 dotenv.config();
 
 const app = express();
@@ -45,9 +46,6 @@ app.post("/login", (req, res) => {
   res.send("Hello World");
 });
 
-app.post("/register", (req, res) => {
-  console.log("register", req.body);
-  res.send("Hello World");
-});
+app.post("/register", registerUser);
 
 app.listen(process.env.PORT || 3001, () => console.log("Server started"));
