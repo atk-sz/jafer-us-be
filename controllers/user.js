@@ -1,5 +1,5 @@
 import User from "../models/user.js";
-// import asyncHandler from "express-async-handler";
+import generateToken from "../utils/generateToken.js";
 
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -17,7 +17,7 @@ export const registerUser = async (req, res) => {
   });
 
   if (user) {
-    // generateToken(res, user._id);
+    generateToken(res, user._id);
     console.log("user", user);
     res.status(201).json({
       _id: user._id,
