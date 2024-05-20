@@ -13,10 +13,17 @@ app.use(
   })
 );
 
-// to accept json data or body data
+// to accept json data or body data for POST request
 app.use(
   express.json({
     limit: "3gb",
+  })
+);
+// to accept json data or body data for PUT/PATCH request
+app.use(
+  express.urlencoded({
+    limit: "3gb",
+    extended: true,
   })
 );
 
