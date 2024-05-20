@@ -1,10 +1,16 @@
 import express from "express";
+import mongoose from "mongoose";
 import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.log(err));
 
 // to improve performance drastically by compressing data on req/res
 app.use(compression());
@@ -35,7 +41,12 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log(req.body);
+  console.log("login", req.body);
+  res.send("Hello World");
+});
+
+app.post("/register", (req, res) => {
+  console.log("register", req.body);
   res.send("Hello World");
 });
 
