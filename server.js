@@ -1,9 +1,32 @@
 import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
-app.get("/",(req,res)=>{
-    res.send("Hello World");
-})
+// to accept request from frontend url
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true,
+  })
+);
 
-app.listen(3000, () => console.log("Server started on port 3000"));
+// to accept json data or body data
+app.use(
+  express.json({
+    limit: "3gb",
+  })
+);
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.post("/login", (req, res) => {
+  console.log(req.body);
+  res.send("Hello World");
+});
+
+app.listen(process.env.PORT || 3001, () => console.log("Server started"));
