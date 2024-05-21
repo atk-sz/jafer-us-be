@@ -2,8 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import compression from "compression";
 import cors from "cors";
+import cookieParser from 'cookie-parser';
 import dotenv from "dotenv";
-import { registerUser } from "./controllers/user.js";
+import { loginUser, logoutUser, registerUser } from "./controllers/user.js";
+import { authCheck } from "./middlewares/authMiddleware.js";
 dotenv.config();
 
 const app = express();
@@ -36,16 +38,15 @@ app.use(
     extended: true,
   })
 );
+// to read cookies
+app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.post("/login", (req, res) => {
-  console.log("login", req.body);
-  res.send("Hello World");
+app.get("/", authCheck, (req, res) => {
+  res.send("Congrats you are authenticated");
 });
 
 app.post("/register", registerUser);
+app.post("/login", loginUser);
+app.post("/logout", logoutUser);
 
 app.listen(process.env.PORT || 3001, () => console.log("Server started"));
