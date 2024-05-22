@@ -41,6 +41,10 @@ app.use(
 // to read cookies
 app.use(cookieParser());
 
+app.get("/1", (req, res) => {
+  res.send("Congrats working fine");
+});
+
 app.get("/", authCheck, (req, res) => {
   res.send("Congrats you are authenticated");
 });
