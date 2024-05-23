@@ -48,7 +48,7 @@ app.use(
   })
 );
 // to read cookies
-app.use(cookieParser());
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.get("/1", (req, res) => {
   res.send("Congrats working fine");
