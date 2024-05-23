@@ -41,8 +41,8 @@ app.use(
 // to read cookies
 app.use(cookieParser());
 
-app.get("/1", (req, res) => {
-  res.send("Congrats working fine");
+app.post("/1", (req, res) => {
+  res.json({ token: req.cookies.jwt });
 });
 
 app.get("/", authCheck, (req, res) => {
