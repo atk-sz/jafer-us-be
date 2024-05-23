@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { loginUser, logoutUser, registerUser } from "./controllers/user.js";
 import { authCheck } from "./middlewares/authMiddleware.js";
-import session from "express-session";
 dotenv.config();
 
 const app = express();
@@ -39,16 +38,8 @@ app.use(
     extended: true,
   })
 );
-// to retain data on session
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-  })
-);
 // to read cookies
-app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(cookieParser());
 
 app.get("/1", (req, res) => {
   res.send("Congrats working fine");
